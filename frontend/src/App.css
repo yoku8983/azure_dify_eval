@@ -1,0 +1,244 @@
+/* src/App.css */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  /* --- ライトテーマのカラーパレット --- */
+  color-scheme: light; /* ライトテーマであることを明示 */
+  color: #333333; /* 主な文字色を濃いグレーに */
+  background-color: #f0f2f5; /* アプリ全体の背景色を明るいグレーに */
+
+  --border-color: #cccccc; /* ボーダー色を薄いグレーに */
+  --input-bg: #ffffff; /* 入力フィールドの背景色を白に */
+  --panel-bg: #ffffff; /* パネルの背景色を白に */
+
+  /* --- ボタンの色 --- */
+  --button-bg: #4a90e2; /* 青系のボタン背景色 */
+  --button-text: #ffffff; /* ボタンの文字色を白に */
+  --button-hover-bg: #3a7bd2; /* ホバー時のボタン背景色 */
+
+  /* --- メッセージの色 --- */
+  --user-message-bg: #e0f2f7; /* ユーザーメッセージ背景を薄い水色に */
+  --bot-message-bg: #e6ffe6; /* ボットメッセージ背景を薄い緑色に */
+  --error-text: #e74c3c; /* エラーテキストを赤に */
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* --- Container Layouts --- */
+.app-container {
+  width: 100%;
+  height: 100%;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2.5rem; /* パディングを少し増やす */
+  background-color: var(--panel-bg); /* 背景色を白に */
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* 角を少し丸く */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+}
+.login-container h2 {
+  color: #333333; /* タイトル色 */
+  margin-bottom: 2rem;
+}
+
+.evaluation-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 1.5rem; /* Gapを少し広げる */
+  padding: 1.5rem; /* パディングを少し広げる */
+  box-sizing: border-box;
+}
+
+.chat-panel, .evaluation-form {
+  flex: 1;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* 角を少し丸く */
+  padding: 1.5rem; /* パディングを少し広げる */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 軽い影を追加 */
+}
+.chat-panel h3, .evaluation-form h3 {
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+
+/* --- Form Elements --- */
+.form-group {
+  margin-bottom: 1.25rem; /* マージンを調整 */
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem; /* マージンを調整 */
+  font-weight: 600; /* ラベルを太字に */
+  color: #555555; /* ラベル色 */
+}
+input[type="text"], input[type="password"], textarea, select {
+  width: 100%;
+  padding: 0.85rem; /* パディングを調整 */
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px; /* 角を少し丸く */
+  color: #333333; /* 入力文字色 */
+  box-sizing: border-box;
+  transition: border-color 0.2s; /* ホバーエフェクト */
+}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+  border-color: var(--button-bg); /* フォーカス時に青色に */
+  outline: none; /* デフォルトのアウトラインを消す */
+}
+textarea {
+  min-height: 90px; /* 最小高さを調整 */
+  resize: vertical;
+}
+button {
+  padding: 0.85rem 1.8rem; /* パディングを調整 */
+  border-radius: 8px;
+  border: none; /* ボーダーを削除 */
+  font-size: 1em;
+  font-weight: 600; /* ボタンの文字を太字に */
+  font-family: inherit;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: background-color 0.25s, box-shadow 0.25s; /* ホバーエフェクト */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+}
+button:hover {
+  background-color: var(--button-hover-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* ホバー時の影を強調 */
+}
+button:disabled {
+  background-color: #cccccc; /* 無効時は薄いグレーに */
+  color: #888888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+p {
+  color: var(--error-text); /* エラーメッセージの色 */
+  font-weight: 500;
+}
+
+/* --- Chat Panel --- */
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #fdfdfd; /* メッセージ領域の背景を少し明るく */
+  border: 1px solid var(--border-color);
+  padding: 1.25rem; /* パディングを調整 */
+  margin-bottom: 1.25rem; /* マージンを調整 */
+  border-radius: 8px; /* 角を少し丸く */
+}
+.message {
+  margin-bottom: 1rem;
+  padding: 0.9rem 1.2rem; /* パディングを調整 */
+  border-radius: 12px; /* メッセージバブルの角を丸く */
+  max-width: 85%; /* メッセージ幅を制限 */
+  word-break: break-word; /* 長い単語の改行 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 軽い影を追加 */
+}
+.message.user {
+  background-color: var(--user-message-bg);
+  text-align: right;
+  margin-left: auto; /* 右寄せ */
+  color: #222222;
+}
+.message.bot {
+  background-color: var(--bot-message-bg);
+  text-align: left;
+  margin-right: auto; /* 左寄せ */
+  color: #222222;
+}
+.message pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif; /* フォントを親と合わせる */
+}
+.chat-input-area {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto; /* 下部に固定 */
+}
+.chat-input-area textarea {
+  flex-grow: 1;
+  min-height: 50px; /* チャット入力欄の最小高さを調整 */
+  max-height: 150px; /* チャット入力欄の最大高さを設定 */
+}
+
+/* --- Evaluation Form --- */
+.evaluation-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0; /* マージンを調整 */
+}
+.radio-group {
+  display: flex;
+  gap: 1.5rem; /* ラジオボタン間の間隔を調整 */
+  flex-wrap: wrap; /* 小さい画面で折り返す */
+}
+.radio-group label {
+  font-weight: normal; /* ラジオボタンのラベルは通常フォントに */
+  color: #333333;
+  margin-bottom: 0.5rem; /* 縦方向のスペース */
+}
+.radio-group input[type="radio"] {
+  margin-right: 0.5rem;
+}
+.readonly-text {
+  background-color: #f7f7f7; /* 読み取り専用フィールドの背景 */
+  padding: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 5rem; /* 高さを調整 */
+  color: #333333;
+}
+
+/* --- 成功メッセージのスタイル --- */
+.success-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #d4edda; /* 薄い緑色 */
+  color: #155724; /* 濃い緑色の文字 */
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* --- エラーメッセージのスタイル --- */
+.error-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #f8d7da; /* 薄い赤色 */
+  color: #721c24; /* 濃い赤色の文字 */
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
