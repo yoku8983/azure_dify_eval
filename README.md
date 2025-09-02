@@ -62,7 +62,7 @@
   
 ### 1. リポジトリのクローン  
 ```bash  
-git clone https://github.com/あなたのリポジトリURL/azure_dify_eval.git  
+git clone https://github.com/yoku8983/azure_dify_eval.git
 cd azure_dify_eval  
 ```  
   
@@ -87,7 +87,7 @@ python -m venv venv
 venv\Scripts\activate  
 ```  
   
-- OS に必要な ODBC ドライバをインストールします（Ubuntu / WSL2 の例）:  
+- OS に必要な ODBC ドライバをインストールします（例）:  
 ```bash  
 sudo apt-get update  
 sudo apt-get install -y unixodbc-dev  
@@ -129,7 +129,8 @@ uvicorn main:app --reload --host 127.0.0.1 --port 8000
 cd frontend  
 npm run dev  
 ```  
-フロントエンドは http://localhost:5173/（または表示される別のポート）で起動します。ブラウザでアクセスしてください。  
+フロントエンドは http://localhost:5173/
+（または表示される別のポート）で起動します。ブラウザでアクセスしてください。  
   
 ## ⚙️ 設定  
 バックエンドの動作には、`backend/` ディレクトリ内に `.env` ファイルを作成し、以下の環境変数を設定する必要があります。  
@@ -151,7 +152,7 @@ APP_USER_ID="<your-id>"
 APP_PASSWORD="<your-strong-shared-password>"  
   
 # 評価者のメンバーリスト（カンマ区切り）  
-EVALUATORS="山田太郎,佐藤花子,鈴木一郎,田中次郎"  
+EVALUATORS="山田太郎,佐藤花子,鈴木一郎,guest"  
 ```  
   
 > 注意: `.env` ファイルは `.gitignore` に含め、リポジトリにはコミットしないでください。  
