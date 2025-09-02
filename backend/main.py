@@ -25,10 +25,13 @@ print("--- 2. FastAPIアプリケーション作成完了 ---")
 settings = config.settings
 
 # --- CORSミドルウェアの設定 ---
-# フロントエンドからのアクセスを許可するために必要
+# 環境変数から許可するオリジン（フロントエンドURL）のリストを読み込む
+# カンマ区切りで複数指定可能 (例: "http://localhost:5173,https://dify-eval-frontend...")
+origins = [url.strip() for url in settings.frontend_url.split(',')]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 本番環境ではフロントエンドのURLに限定してください
+    allow_origins=origins, # 読み込んだリストを使用
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

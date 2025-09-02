@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
 
 // --- 子コンポーネント：チャットパネル ---
 function ChatPanel({ messages, setMessages, onChatComplete, isChatActive }) {
