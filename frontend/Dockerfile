@@ -16,7 +16,13 @@ COPY . .
 RUN npm run build
 
 # --- ステージ2: 本番環境 ---
-FROM nginx:stable-alpine
+FROM nginx:stable-alpine AS stage-1
 COPY --from=build /app/dist /usr/share/nginx/html
+
+# --- 追加: Nginxテンプレート機能を使って起動時に環境変数を展開 ---
+ENV NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
+ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

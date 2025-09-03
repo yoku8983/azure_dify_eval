@@ -1,0 +1,22 @@
+server {
+  listen 80;
+  # IngressでTLS終端されるため、コンテナ内はHTTPでOK
+
+  # SPA の静的配信＆HTML5ルーティング
+  root /usr/share/nginx/html;
+  index index.html;
+  location / {
+    try_files $uri /index.html;
+  }
+
+  # === API をバックエンドの internal FQDN にプロキシ ===
+  # BACKEND_ORIGIN の例: https://dify-eval-backend.internal.<env-id>.centralus.azurecontainerapps.io/api
+  location /api/ {
+    proxy_pass ${BACKEND_ORIGIN};   # 末尾スラッシュ無しの /api を環境変数で渡す
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_ssl_server_name on;       # SNI
+  }
+}
