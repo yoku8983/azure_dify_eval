@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react'; // useEffectをインポート
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+// VITE_API_URL が無ければ '' を指定し、同一オリジンの /api を呼び出す
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 function LoginPage({ onLoginSuccess }) {
   const [userId, setUserId] = useState('');
